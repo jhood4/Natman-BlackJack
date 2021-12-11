@@ -29,7 +29,23 @@ namespace BlackJack.TagHelperComponents
         public override void Process(TagHelperContext context,
         TagHelperOutput output)
         {
-            
+            output.TagName = "div";
+            output.Attributes.SetAttribute("class", "hand mb-4");
+            output.TagMode = TagMode.StartTagAndEndTag;
+            var content = "";
+            for(int i = 0; i < Dealer.Hand.Count; i++)
+            {
+                if(i == 0 && Dealer.Hand.HideHoleCard)
+                {
+                    content += "<img src='images/back.svg' class='img-fluid' />";
+                }
+                else
+                {
+                    Card card = Dealer.Hand.Cards[i];
+                    content += $"<img src='images/{card.Name}.svg' class='img-fluid' />";
+                }
+            }
+            output.Content.SetHtmlContent(content);
         }
     }
 }
