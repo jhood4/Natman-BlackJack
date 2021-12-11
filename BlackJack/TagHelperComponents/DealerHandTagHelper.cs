@@ -10,15 +10,15 @@ using System.Threading.Tasks;
 
 namespace BlackJack.TagHelperComponents
 {
-    [HtmlTargetElement("showplayerheader")]
-    public class ShowPlayerHeaderTagHelper : TagHelper
+    [HtmlTargetElement("showdealercards")]
+    public class DealerHandTagHelper : TagHelper
     {
         private ISession session { get; set; }
-        public Player Player { get; set; }
-        public ShowPlayerHeaderTagHelper(IHttpContextAccessor accessor)
+        public Dealer Dealer { get; set; }
+        public DealerHandTagHelper(IHttpContextAccessor accessor)
         {
             session = accessor.HttpContext.Session;
-            Player = session.GetObject<Player>("player") ?? new Player();
+            Dealer = session.GetObject<Dealer>("dealer") ?? new Dealer();
 
         }
 
@@ -29,16 +29,7 @@ namespace BlackJack.TagHelperComponents
         public override void Process(TagHelperContext context,
         TagHelperOutput output)
         {
-            string playerHeader = "Player";
-
-            if (Player.Hand.HasCards)
-            {
-                playerHeader = Player.Hand.Total.ToString();
-            }
-
-            output.TagName = "h5";
-            output.TagMode = TagMode.StartTagAndEndTag;
-            output.Content.SetContent(playerHeader);
+            
         }
     }
 }
