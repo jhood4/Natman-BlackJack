@@ -38,7 +38,7 @@ namespace BlackJack.TagHelperComponents
             foreach (Card card in Player.Hand.Cards)
             {
                 
-                 content += "<img src='~/images/@(card.Name).svg' />";
+                 content += $"<img src='images/{card.Name}.svg' />";
             }        
             output.Content.SetHtmlContent(content);
         }
