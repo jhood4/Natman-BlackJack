@@ -28,7 +28,7 @@ namespace BlackJack.TagHelperComponents
 
             output.Attributes.SetAttribute("class", "col-2 offset-3");
             output.TagMode = TagMode.StartTagAndEndTag;
-            var content = "";
+            var content = "<form asp-action='Deal' method='post' class='col'>";
 
 
 
@@ -40,6 +40,7 @@ namespace BlackJack.TagHelperComponents
             {
                 content += "<button type='submit' class='btn btn-primary' disabled>Deal</button>";
             }
+            content += "</form>";
             output.Content.SetHtmlContent(content);
         }
     }
