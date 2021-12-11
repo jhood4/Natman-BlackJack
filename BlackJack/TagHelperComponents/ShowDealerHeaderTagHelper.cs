@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace BlackJack.TagHelperComponents
 {
-    [HtmlTargetElement("showdealercards")]
-    public class ShowDealerCardsTagHelper : TagHelper
+    [HtmlTargetElement("showdealerheader")]
+    public class ShowDealerHeaderTagHelper : TagHelper
     {
         private ISession session { get; set; }
         public Dealer Dealer { get; set; }
-        public ShowDealerCardsTagHelper(IHttpContextAccessor accessor)
+        public ShowDealerHeaderTagHelper(IHttpContextAccessor accessor)
         {
             session = accessor.HttpContext.Session;
             Dealer = session.GetObject<Dealer>("dealer") ?? new Dealer();
