@@ -12,11 +12,12 @@ namespace BlackJack
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMemoryCache();
-            services.AddSession();
+            
 
             services.AddControllersWithViews().AddNewtonsoftJson();
 
             services.AddTransient<IGame, Game>();
+            services.AddSession();
             services.AddHttpContextAccessor();   
         }
 
