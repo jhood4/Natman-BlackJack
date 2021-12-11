@@ -8,15 +8,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace BlackJack.TagHelperComponents
 {
-
-    [HtmlTargetElement("showplayerheader")]
-    public class ShowPlayerHeaderTagHelper : TagHelper
+    [HtmlTargetElement("showplayercards")]
+    public class PlayerHandTagHelper : TagHelper
     {
         private ISession session { get; set; }
         public Player Player { get; set; }
-        public ShowPlayerHeaderTagHelper(IHttpContextAccessor accessor)
+        public PlayerHandTagHelper(IHttpContextAccessor accessor)
         {
             session = accessor.HttpContext.Session;
             Player = session.GetObject<Player>("player") ?? new Player();
@@ -30,21 +30,27 @@ namespace BlackJack.TagHelperComponents
         public override void Process(TagHelperContext context,
         TagHelperOutput output)
         {
-            
-
-            string playerHeader = "Player";
-
-            if (Player.Hand.HasCards)
+            output.TagName = "div";
+            output.Attributes.SetAttribute("class", "hand mb-4");
+            output.TagMode = TagMode.StartTagAndEndTag;
+            var content = "";
+   
+            foreach (Card card in Player.Player.Hand.Cards)
             {
-                playerHeader = Player.Hand.Total.ToString();
+                <img src="~/images/@(card.Name).svg" />
+            }        
+            
+            if (NeedsDeal)
+            {
+                <button type="submit" class="btn btn-primary">Deal</button>
+            }
+            else
+            {
+                <button type="submit" class="btn btn-primary" disabled>Deal</button>
             }
 
-            output.TagName = "h5";
-            output.TagMode = TagMode.StartTagAndEndTag;
-            output.Content.SetContent(playerHeader);
+
+            output.Content.SetHtmlContent(content);
         }
-
-
-
     }
 }
