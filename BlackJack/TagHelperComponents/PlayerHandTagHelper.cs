@@ -35,21 +35,11 @@ namespace BlackJack.TagHelperComponents
             output.TagMode = TagMode.StartTagAndEndTag;
             var content = "";
    
-            foreach (Card card in Player.Player.Hand.Cards)
+            foreach (Card card in Player.Hand.Cards)
             {
-                <img src="~/images/@(card.Name).svg" />
+                
+                 content += "<img src='~/images/@(card.Name).svg' />";
             }        
-            
-            if (NeedsDeal)
-            {
-                <button type="submit" class="btn btn-primary">Deal</button>
-            }
-            else
-            {
-                <button type="submit" class="btn btn-primary" disabled>Deal</button>
-            }
-
-
             output.Content.SetHtmlContent(content);
         }
     }
