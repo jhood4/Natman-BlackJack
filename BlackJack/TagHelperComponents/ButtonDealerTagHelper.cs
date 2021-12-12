@@ -1,12 +1,6 @@
-﻿using BlackJack.Models;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BlackJack.TagHelperComponents
 {
@@ -14,27 +8,25 @@ namespace BlackJack.TagHelperComponents
     public class ButtonDealerTagHelper : TagHelper
     {
         private ISession session { get; set; }
-        public bool NeedsDeal { get; set; }
+        private int? DealNeeded { get; set; }
         public ButtonDealerTagHelper(IHttpContextAccessor accessor)
         {
             session = accessor.HttpContext.Session;
-            NeedsDeal = Convert.ToBoolean(session.GetInt32("deal"));
+            DealNeeded = session.GetInt32("deal") ?? 1;
         }
 
         public override void Process(TagHelperContext context,
         TagHelperOutput output)
         {
-            output.TagName = "form";
+            output.TagName = "div";
 
             output.Attributes.SetAttribute("class", "col-2 offset-3");
             output.TagMode = TagMode.StartTagAndEndTag;
-            var content = "<form asp-action='Deal' method='post' class='col'>";
+            var content = "<form action='/Home/Deal' method='post' class='col'>";
 
-
-
-            if (NeedsDeal)
+            if (DealNeeded == 1) 
             {
-                content += $"< button type='submit' class='btn btn-primary'>Deal</button>";
+                content += "<button type='submit' class='btn btn-primary'>Deal</button>";
             }
             else
             {
