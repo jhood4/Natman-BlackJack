@@ -22,7 +22,7 @@ namespace BlackJack.TagHelperComponents
 
             output.Attributes.SetAttribute("class", "col-2 offset-3");
             output.TagMode = TagMode.StartTagAndEndTag;
-            var content = "<form asp-action='Deal' method='post' class='col'>";
+            var content = "<form action='/Home/Deal' method='post' class='col'>";
 
             if (DealNeeded == 1) 
             {
